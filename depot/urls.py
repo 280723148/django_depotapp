@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^depotapp/', include('depotapp.urls', namespace='depotapp'))
 ]
 
+# for development only
+# This will only work if DEBUG is True.
+urlpatterns += staticfiles_urlpatterns()
