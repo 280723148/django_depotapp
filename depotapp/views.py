@@ -48,7 +48,6 @@ def list_product(request):
     return HttpResponse(t.render(c))
 
 
-
 def view_product(request, id):
     product_instance = Product.objects.get(id = id)
 
@@ -56,6 +55,8 @@ def view_product(request, id):
     c=RequestContext(request,locals())
     return HttpResponse(t.render(c))
 
+
+@csrf_exempt
 def edit_product(request, id):
 
     product_instance = Product.objects.get(id=id)
