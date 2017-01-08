@@ -46,4 +46,20 @@
     </div><!-- /content -->
 </div><!-- /container -->
 </body>
+</body>
+{% load staticfiles %}
+<script src="{% static 'depotapp/js/jquery-3.1.1.js' %}"></script>
+{% load staticfiles %}
+    {% block js %}
+        <!--这里插入具体页面引用的js库，或者js代码-->
+     {% endblock %}
+    <script>
+    $(function () {
+        //这里编写base界面的on_ready代码
+
+        {% block on_ready %}
+            //这里插入具体界面的on_ready代码
+        {% endblock %}
+    });
+    </script>
 </html>

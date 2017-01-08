@@ -13,10 +13,20 @@ class Product(models.Model):
     date_available = models.DateField()
 
 
+class Order(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.TextField()
+    email = models.EmailField()
+
+
 class LineItem(models.Model):
     product = models.ForeignKey(Product)
+    #order = models.ForeignKey(Order)
     unit_price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField()
+
+
+
 
 class Cart(object):
     def __init__(self, *args, **kwargs):
