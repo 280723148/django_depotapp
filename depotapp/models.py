@@ -21,7 +21,7 @@ class Order(models.Model):
 
 class LineItem(models.Model):
     product = models.ForeignKey(Product)
-    #order = models.ForeignKey(Order)
+    order = models.ForeignKey(Order)
     unit_price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField()
 

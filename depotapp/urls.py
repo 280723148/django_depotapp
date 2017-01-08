@@ -24,5 +24,9 @@ urlpatterns =[
     url(r'^API/product/detail_api_class/(?P<pk>[0-9]+)$', ProductDetailAPIVIEW.as_view()),
     url(r'^API/product/cart_list_session/$', cart_list_session),
 
+    url(r'^order/create/$', create_order, name='create_order'),
+    url(r'^order/list/$', list_order, name='list_order'),
+    url(r'^order/edit/(?P<id>[^/]+)/$', edit_order, name='edit_order'),
+    url(r'^order/view/(?P<id>[^/]+)/$', view_order, name='view_order'),
 
 ]

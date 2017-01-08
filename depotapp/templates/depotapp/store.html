@@ -42,7 +42,7 @@
     </t foot>
 </table>
 <a class="btn danger" href="{% url 'depotapp:clean_cart' %}">清空</a>
-<a class="btn success" href="#">结算</a>
+<a class="btn success" href="{% url 'depotapp:create_order' %}">结算</a>
 </div><!--span4-->
 {% endblock %}
 {% block js %}

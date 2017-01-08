@@ -18,6 +18,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.db import transaction
+
 import datetime
 # app specific files
 
@@ -359,7 +361,59 @@ def cart_list_session(request):
         #else:
         #    return JSONResponse(serializer.errors, status=400)
 
+@csrf_exempt
+@transaction.atomic
+def create_order(request):
+    form = OrderForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = OrderForm()
+
+    t = get_template('depotapp/create_order.html')
+    c = RequestContext(request,locals())
+    return HttpResponse(t.render(c))
 
 
+def list_order(request):
+    list_items = Order.objects.all()
+    paginator = Paginator(list_items ,10)
+
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        list_items = paginator.page(page)
+    except :
+        list_items = paginator.page(paginator.num_pages)
+
+    t = get_template('depotapp/list_order.html')
+    c = RequestContext(request,locals())
+    return HttpResponse(t.render(c))
+
+
+
+def view_order(request, id):
+    order_instance = Order.objects.get(id = id)
+
+    t=get_template('depotapp/view_order.html')
+    c=RequestContext(request,locals())
+    return HttpResponse(t.render(c))
+
+
+def edit_order(request, id):
+
+    order_instance = Order.objects.get(id=id)
+
+    form = OrderForm(request.POST or None, instance = order_instance)
+
+    if form.is_valid():
+        form.save()
+
+    t=get_template('depotapp/edit_order.html')
+    c=RequestContext(request,locals())
+    return HttpResponse(t.render(c))
 
 

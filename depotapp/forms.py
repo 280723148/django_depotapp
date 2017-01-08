@@ -34,3 +34,11 @@ class ProductForm (forms.ModelForm ):
             raise forms.ValidationError('图片格式必须为jpg、png或gif')
         return url
 
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        exclude = [] # uncomment this line and specify any field to exclude it from the form
+
+    def __init__(self, *args, **kwargs):
+        super(OrderForm, self).__init__(*args, **kwargs)
