@@ -34,7 +34,8 @@ from rest_framework import viewsets
 
 from .models import Product
 from .serializer import ProductSerializer, LineItemSerializer
-
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 @csrf_exempt
 def create_product(request):
@@ -48,6 +49,7 @@ def create_product(request):
     return HttpResponse(t.render(c))
 
 
+@login_required
 def list_product(request):
   
     list_items = Product.objects.all()
@@ -406,14 +408,38 @@ def view_order(request, id):
 def edit_order(request, id):
 
     order_instance = Order.objects.get(id=id)
-
     form = OrderForm(request.POST or None, instance = order_instance)
-
     if form.is_valid():
         form.save()
-
     t=get_template('depotapp/edit_order.html')
     c=RequestContext(request,locals())
     return HttpResponse(t.render(c))
+
+
+def atom_of_order(request, id):
+    product = Product.objects.get(id = id)
+    t = get_template('depotapp/atom_order.xml')
+    c=RequestContext(request, locals())
+    return HttpResponse(t.render(c), content_type='application/atom+xml')
+
+@csrf_exempt
+def login_view(request):
+    user = authenticate(username=request.POST['username'], password=request.POST['password'])
+    if user is not None:
+        login(request, user)
+        print request.user
+        return list_product(request)
+    else:
+        #验证失败，暂时不做处理
+        return store_view(request)
+
+@csrf_exempt
+def logout_view(request):
+    logout(request)
+    return store_view(request)
+
+
+
+
 
 

@@ -34,7 +34,7 @@
         <div class="span4">
         <p><a class="btn primary span2" href="{% url 'depotapp:store_view' %}">继续购物</a></a></p>
         <p><a class="btn danger span2" href="{% url 'depotapp:clean_cart' %}">清空购物车</a></p>
-        <p><a class="btn success span2" href="#">结算</a></p>
+        <p><a class="btn success span2" href="{% url 'depotapp:create_order' %}">结算</a></p>
         </div>
     </div>
     {% endblock %}

@@ -4,6 +4,11 @@ from django.db import models
 
 # Create your models here.
 
+class Order(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.TextField()
+    email = models.EmailField()
+
 
 class Product(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -11,21 +16,14 @@ class Product(models.Model):
     image_url = models.URLField(max_length=200)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     date_available = models.DateField()
-
-
-class Order(models.Model):
-    name = models.CharField(max_length=50)
-    address = models.TextField()
-    email = models.EmailField()
+    orders = models.ManyToManyField(Order, through='LineItem')
 
 
 class LineItem(models.Model):
-    product = models.ForeignKey(Product)
     order = models.ForeignKey(Order)
+    product = models.ForeignKey(Product)
     unit_price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField()
-
-
 
 
 class Cart(object):
