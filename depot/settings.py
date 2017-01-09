@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'depotapp.apps.DepotappConfig',
+    'upload.apps.UploadConfig',
     'django-groundwork',
     'rest_framework'
 ]

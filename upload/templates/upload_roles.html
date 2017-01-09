@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>upload</title>
+        <meta http-equiv="description" content="this is my page">
+        <meta http-equiv="content-type" content="text/html; charset=GB18030">
+    </head>
+
+    <body>
+        <form action="{% url 'upload:rolesUpload' %}" method="post" enctype="multipart/form-data">
+            <input type="text" name="name" />
+            <input type="file" name="tasks" />
+            <input type="file" name="vars" />
+            <input type="submit" value="upload" />
+        </form>
+    </body>
+</html>
